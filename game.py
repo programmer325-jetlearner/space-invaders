@@ -26,7 +26,35 @@ SPACE=pygame.transform.scale(SPACE_IMG,(900,500))
 
 def draw_window(red,yellow,red_bullets,yellow_bullets,red_health,yellow_health):
     screen.blit(SPACE,(0,0))
+    pygame.draw.rect(screen,"red",BORDER)
+    red_health_text=HEALTH_FONT.render(f"health: {red_health}",1,"white")
+    yellow_health_text=HEALTH_FONT.render(f"health: {yellow_health}",1,"white")
+    screen.blit(red_health_text,(WIDTH-red_health_text.get_width()-10,10))
+    screen.blit(yellow_health_text,(10,10))
+    screen.blit(RED_SPACESHIP,(red.x,red.y))
+    screen.blit(YELLOW_SPACESHIP,(yellow.x,yellow.y))
 
+    for bullet in red_bullets:
+        pygame.draw.rect(screen,"red",bullet)
+    
+    for bullet in yellow_bullets:
+        pygame.draw.rect(screen,"yellow",bullet)
+    
+    pygame.display.update()
+
+
+def yellow_spaceship_movement(keys_pressed,yellow):
+    if keys_pressed[pygame.K_a] and yellow.x-VEL>0:
+        yellow.x-=VEL
+    if keys_pressed[pygame.K_d] and yellow.x+VEL+yellow.width<BORDER.x:
+        yellow.x+=VEL
+    if keys_pressed[pygame.K_w] and yellow.y-VEL>0:
+        yellow.y-=VEL
+    if keys_pressed[pygame.K_s] and yellow.y+VEL+yellow.height<HEIGHT-15:
+        yellow.y+=VEL
+
+
+    
 
 
 
