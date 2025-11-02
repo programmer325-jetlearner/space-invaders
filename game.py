@@ -89,7 +89,48 @@ def draw_winner(text):
     screen.blit(draw_text,(WIDTH/2-draw_text.get_width()/2,HEIGHT/2-draw_text.get_height()/2))
     pygame.display.update()
     pygame.time.delay(5000)
+
+#main game function
+def main():
+    red=pygame.Rect(700,300,SPACESHIP_WIDTH,SPACESHIP_HEIGHT)
+    yellow=pygame.Rect(300,300,SPACESHIP_WIDTH,SPACESHIP_HEIGHT)
+    red_bullets=[]
+    yellow_bullets=[]
+    red_health=10
+    yellow_health=10
+    clock=pygame.time.clock(FPS)   
+    run=True
+
+    while run:
+        clock.tick(FPS)
+        for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                run=False
+                pygame.quit()
+                exit()
+            if event.type==pygame.KEYDOWN:
+                if event.key==pygame.K_LCTRL and len(yellow_bullets)<MAX_BULS:
+                    bullet=pygame.Rect(yellow.x+SPACESHIP_WIDTH,yellow.y+yellow.height//2-2,10,5)
+                    yellow_bullets.append(bullet)
+                
+                if event.key==pygame.K_RCTRL and len(red_bullets)<MAX_BULS:
+                    bullet=pygame.Rect(red.x+SPACESHIP_WIDTH,red.y+red.height//2-2,10,5)
+                    red_bullets.append(bullet)
+                
+            if event.type==RED_HIT:
+                red_health-=1
+            if event.type==YELLOW_HIT:
+                yellow_health-=1
+        winner_txt=""
+        if yellow_health<=0:
+            winner_txt="RED WINS!"
+        if red_health<=0:
+            winner_txt="YELLOW WINS!"
+        
+        keys_pressed=pygame.key.get_pressed()
+        
     
+                    
         
         
 
