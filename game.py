@@ -98,7 +98,7 @@ def main():
     yellow_bullets=[]
     red_health=10
     yellow_health=10
-    clock=pygame.time.clock(FPS)   
+    clock=pygame.time.Clock()   
     run=True
 
     while run:
@@ -128,6 +128,16 @@ def main():
             winner_txt="YELLOW WINS!"
         
         keys_pressed=pygame.key.get_pressed()
+        yellow_spaceship_movement(keys_pressed,yellow)
+        red_spaceship_movement(keys_pressed,red)
+        handling_bullets(yellow_bullets,red_bullets,yellow,red)
+        draw_window(red,yellow,red_bullets,yellow_bullets,red_health,yellow_health)
+        if winner_txt!="":
+            draw_winner(winner_txt)
+            break
+    main()
+
+main()
         
     
                     
